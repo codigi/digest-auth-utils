@@ -1,0 +1,14 @@
+{
+  "name": "test",
+  "version": "0.0.0",
+  "description": "",
+  "main": "test.js",
+  "scripts": {
+      "start": "node test.js"
+  },
+  "author": "Atanas Palavrov <palavrov@codigi.net> (http://codigi.net)",
+  "license": "MIT",
+  "dependencies": {
+    "digest-auth-utils": "../"
+  }
+}
