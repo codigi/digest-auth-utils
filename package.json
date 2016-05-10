@@ -1,6 +1,6 @@
 {
   "name": "digest-auth-utils",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Digest authentication utilities",
   "main": "index.js",
   "scripts": {
