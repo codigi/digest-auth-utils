@@ -1,9 +1,13 @@
 var md5 = require("crypto-js/md5");
 
 module.exports = {
-    parseServerChallenge: function(header) {
+    parseServerChallenge: function(header, challenge) {
         var splitting = header.split(', ');
-        var challenge = {};
+        challenge = challenge || {};
+
+        if(!splitting.length) {
+            return challenge;
+        }
 
         for(var i=0; i<splitting.length; i++) {
             var values = /([a-zA-Z]+)=\"?([a-zA-Z0-9.@\/\s]+)\"?/.exec(splitting[i]);
