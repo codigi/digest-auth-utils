@@ -1,5 +1,9 @@
 var md5 = require("crypto-js/md5");
 
+var buildField = function(name, value) {
+    return value ? name+"=\""+value+"\", " : "";
+};
+
 module.exports = {
     parseServerChallenge: function(header, challenge) {
         var splitting = header.split(', ');
@@ -30,16 +34,16 @@ module.exports = {
         var ha2 = md5([method, uri].join(":"));
         var response = md5([ha1, challenge.nonce, nc, cnonce, challenge.qop, ha2].join(":"));
 
-        return "Digest " +
-            "username=\""  + username            + "\", " +
-            "realm=\""     + challenge.realm     + "\", " +
-            "nonce=\""     + challenge.nonce     + "\", " +
-            "uri=\""       + uri                 + "\", " +
-            "algorithm=\"" + challenge.algorithm + "\", " +
-            "response=\""  + response            + "\", " +
-            "opaque=\""    + challenge.opaque    + "\", " +
-            "qop=\""       + challenge.qop       + "\", " +
-            "nc=\""        + nc                  + "\", " +
-            "cnonce=\""    + cnonce              + "\"";
+        return ("Digest " +
+            buildField( "username" , username            ) +
+            buildField( "realm"    , challenge.realm     ) +
+            buildField( "nonce"    , challenge.nonce     ) +
+            buildField( "uri"      , uri                 ) +
+            buildField( "algorithm", challenge.algorithm ) +
+            buildField( "response" , response            ) +
+            buildField( "opaque"   , challenge.opaque    ) +
+            buildField( "qop"      , challenge.qop       ) +
+            buildField( "nc"       , nc                  ) +
+            buildField( "cnonce"   , cnonce              )).slice(0, -2);
     }
 };
